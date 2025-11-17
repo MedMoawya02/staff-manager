@@ -84,8 +84,8 @@
                     <option >Autre</option>
                 </select>
                 <label >Photo (URL):</label>
-                <input type="file" accept="image/*" id="inputImageWorker" >
-                <img id="imageWorker" src="" alt="Aperçu de la photo" style="max-width: 100px; max-height: 100px; display: none; margin-top: 10px;">
+                <input type="file" accept="image/*" id="inputImageWorker" onchange="changeImage()" >
+                <img id="imageWorker" src="" alt="Aperçu de la photo" style="max-width: 100px; max-height: 100px; margin-top: 10px;border-radius: 50%;text-align: center;display: none;">
                 <h4 >Experiences:</h4>
                 <label >Company:</label>
                 <input type="text" placeholder="Entrez votre expérience" id="workerExperienceCompany">

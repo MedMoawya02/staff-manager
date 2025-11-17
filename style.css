@@ -53,7 +53,16 @@ body{
 }
 .cardStaff:hover{ transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
 .cardStaff .cardInfo{ display: flex; align-items: center; gap: 5px; }
-.imgCard{ width: 50px; height: 50px; border-radius: 50%; }
+.imgCard{ 
+    width: 80px; 
+    height: 80px;
+    border-radius: 50%; 
+    object-fit: cover; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: block; 
+    border: 3px solid #ffffff; 
+    outline-offset: 2px; 
+}
 .btnEditStaff{ color: #ff8c00; background: none; border: none; outline: none; cursor: pointer; padding: 0.5rem 1rem; font-weight: bold; font-size: 1rem; }
 .btnAddWorker{
     background-color: #08d820; 
