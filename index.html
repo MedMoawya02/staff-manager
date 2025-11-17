@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- link css -->
     <link rel="stylesheet" href="style.css">
+    <!-- icones cdn -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Staff manager</title>
 </head>
 
@@ -15,53 +17,99 @@
         <div id="staffMembers">
             <h2>Staff Members (Unassinged)</h2>
             <div id="cards">
-                <div class="cardStaff">
+                <!-- <div class="cardStaff">
                     <div class="cardInfo">
-                        <img src="images/background.jpg" class="imgCard">
+                        <img src="https://avatar.iran.liara.run/public/22" class="imgCard">
                         <div>
                             <h3>Name</h3>
                             <p>Role</p>
                         </div>
                     </div>
                     <button class="btnEditStaff">Edit</button>
-                </div>
+                </div> -->
             </div>
             <button class="btnAddWorker">Add new worker</button>
         </div>
         <!-- Staffs section end -->
+
+        <!-- rooms section start -->
         <div id="rooms">
             <div class="room-item">
-                <h5>Room name</h5>
+                <h5>Salle de conférence</h5>
                 <button class="addToRoom">+</button>
             </div>
             <div class="room-item">
                 
             </div>
             <div class="room-item">
-                <h5>Room name</h5>
+                <h5>Réception</h5>
                 <button class="addToRoom">+</button>
             </div>
             <div class="room-item">
-                <h5>Room name</h5>
+                <h5>Salle des serveurs</h5>
                 <button class="addToRoom">+</button>
             </div>
             <div class="room-item">
-                <h5>Room name</h5>
+                <h5>Salle de sécurité</h5>
                 <button class="addToRoom">+</button>
             </div>
             <div class="room-item">
                 
             </div>
             <div class="room-item">
-                <h5>Room name</h5>
+                <h5>Salle du personnel</h5>
                 <button class="addToRoom">+</button>
             </div>
             <div class="room-item">
-                <h5>Room name</h5>
+                <h5>Salle d’archives</h5>
                 <button class="addToRoom">+</button>
             </div>
         </div>
+        <!-- rooms section start -->
+
     </div>
+    <!-- formulair start -->
+     <section id="formulaire">
+        <div id="formulaireContent">
+            <form action="" id="formAddWorker">
+                <label >Name:</label>
+                <input type="text" placeholder="Entre votre nom" id="workerName">
+                <label >Role:</label>
+                <select name="" id="workerRole">
+                    <option >Option</option>
+                    <option >Réceptionniste</option>
+                    <option >Technicien IT</option>
+                    <option >Agent de sécurité</option>
+                    <option >Manager</option>
+                    <option >Autre</option>
+                </select>
+                <label >Photo (URL):</label>
+                <input type="file" accept="image/*" id="inputImageWorker" >
+                <img id="imageWorker" src="" alt="Aperçu de la photo" style="max-width: 100px; max-height: 100px; display: none; margin-top: 10px;">
+                <h4 >Experiences:</h4>
+                <label >Company:</label>
+                <input type="text" placeholder="Entrez votre expérience" id="workerExperienceCompany">
+                <label >Role:</label>
+                <select name="" id="workerExperienceRole">
+                    <option >Option</option>
+                    <option >Réceptionniste</option>
+                    <option >Technicien IT</option>
+                    <option >Agent de sécurité</option>
+                    <option >Manager</option>
+                    <option >Autre</option>
+                </select>
+                <label >From:</label>
+                <input type="date" id="dateDebutExperience">
+                <label >To:</label>
+                <input type="date" id="dateFinExperience">
+                <div>
+                    <button id="btnSaveWorker"><i class="fa-solid fa-floppy-disk"></i>Enregistrer</button>
+                     <button id="btnAnnuler"><i class="fa-solid fa-delete-left"></i>Annuler</button>
+                </div>
+                <button class="close" type="button">&#x2715; </button>
+            </form>
+        </div>
+     </section>
 
 
 
