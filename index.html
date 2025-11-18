@@ -7,7 +7,9 @@
     <!-- link css -->
     <link rel="stylesheet" href="style.css">
     <!-- icones cdn -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Staff manager</title>
 </head>
 
@@ -36,13 +38,13 @@
         <div id="rooms">
             <div class="room-item room-1">
                 <h5>Conference Room</h5>
-                <button class="addToRoom" id="conferenceRoom">+</button>
+                <button class="addToRoom" data-action="ajoutez" id="conferenceRoom">+</button>
             </div>
             <div class="room-item room-2 couloir">
-                
+
             </div>
             <div class="room-item room-8 couloir">
-                
+
             </div>
             <div class="room-item room-3">
                 <h5>Réception</h5>
@@ -73,50 +75,60 @@
 
     </div>
     <!-- formulair start -->
-     <section id="formulaire">
+    <section id="formulaire">
         <div id="formulaireContent">
             <form action="" id="formAddWorker">
-                <label >Name:</label>
+                <label>Name:</label>
                 <input type="text" placeholder="Entre votre nom" id="workerName">
                 <p class="errorMessage"></p>
-                <label >Role:</label>
+                <label>Role:</label>
                 <select name="" id="workerRole">
-                    <option >Option</option>
-                    <option >Réceptionniste</option>
-                    <option >Technicien IT</option>
-                    <option >Agent de sécurité</option>
-                    <option >Manager</option>
-                    <option >Autre</option>
+                    <option>Option</option>
+                    <option>Réceptionniste</option>
+                    <option>Technicien IT</option>
+                    <option>Agent de sécurité</option>
+                    <option>Manager</option>
+                    <option>Autre</option>
                 </select>
                 <p class="errorMessage"></p>
-                <label >Photo (URL):</label>
-                <input type="text" accept="image/*" id="inputImageWorker" onchange="changeImage(this.value)" >
-                <img id="imageWorker" src="/images/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg" alt="Aperçu de la photo" style="max-width: 100px; max-height: 100px; margin-top: 10px;border-radius: 50%;text-align: center;">
-                <h4 >Experiences:</h4>
-                <label >Company:</label>
+                <label>Photo (URL):</label>
+                <input type="text" accept="image/*" id="inputImageWorker" onchange="changeImage(this.value)">
+                <img id="imageWorker" src="/images/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg" alt="Aperçu de la photo"
+                    style="max-width: 100px; max-height: 100px; margin-top: 10px;border-radius: 50%;text-align: center;">
+                <h4>Experiences:</h4>
+                <label>Company:</label>
                 <input type="text" placeholder="Entrez votre expérience" id="workerExperienceCompany">
-                <label >Role:</label>
+                <label>Role:</label>
                 <select name="" id="workerExperienceRole">
-                    <option >Option</option>
-                    <option >Réceptionniste</option>
-                    <option >Technicien IT</option>
-                    <option >Agent de sécurité</option>
-                    <option >Manager</option>
-                    <option >Autre</option>
+                    <option>Option</option>
+                    <option>Réceptionniste</option>
+                    <option>Technicien IT</option>
+                    <option>Agent de sécurité</option>
+                    <option>Manager</option>
+                    <option>Autre</option>
                 </select>
-                <label >From:</label>
+                <label>From:</label>
                 <input type="date" id="dateDebutExperience">
-                <label >To:</label>
+                <label>To:</label>
                 <input type="date" id="dateFinExperience">
                 <p class="errorMessage"></p>
                 <div>
                     <button id="btnSaveWorker"><i class="fa-solid fa-floppy-disk"></i>Enregistrer</button>
-                     <button id="btnAnnuler"><i class="fa-solid fa-delete-left"></i>Annuler</button>
+                    <button id="btnAnnuler" ><i class="fa-solid fa-delete-left" ></i>Annuler</button>
                 </div>
                 <button class="close" type="button">&#x2715; </button>
             </form>
         </div>
+    </section>
+    <!-- formulair end -->
+
+    <!-- modal des employées start -->
+     <section id ="modal">
+        <div id="modalContent">
+            
+        </div>
      </section>
+    <!-- modal des employées start -->
 
 
 

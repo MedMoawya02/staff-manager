@@ -13,12 +13,21 @@ let company = document.getElementById('workerExperienceCompany');
 let workerExperienceRole = document.getElementById('workerExperienceRole');
 let dateDebutExperience = document.getElementById('dateDebutExperience');
 let dateFinExperience = document.getElementById('dateFinExperience');
+let btnAnnuler= document.getElementById('btnAnnuler');
 
 let errorParagraphe = document.querySelectorAll('#formAddWorker .errorMessage');
 
+//data for rooms section
+let btnsAddToRoom=document.querySelectorAll('#rooms .room-item .addToRoom');
+
+//data for modal section
+let modalSection=document.getElementById('modal');
+let modalContent=document.getElementById('modalContent');
+
+
 //local storage
 let workers;
-if (localStorage.getItem('workers')) {
+if (localStorage.getItem('workers')!=null) {
     workers = JSON.parse(localStorage.getItem('workers'))
 } else {
     workers = [];
@@ -43,7 +52,7 @@ btnClose.addEventListener('click', () => {
 function showWorkers() {
     staffCards.innerHTML = workers.map((worker, index) =>
         `
-            <div class="cardStaff">
+            <div class="cardStaff" data-id="${index}">
                     <div class="cardInfo">
                         <img src='${worker.image}' class="imgCard">
                         <div>
@@ -52,14 +61,15 @@ function showWorkers() {
                         </div>
                     </div>
                     <button class="btnEditStaff">Edit</button>
-                </div> 
+            </div> 
+
         `
     ).join("")
 }
 
 //formulaire submit
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    e.preventDefault();       
     let newExperience = {
         company: company.value,
         workerExperienceRole: workerExperienceRole.value,
@@ -110,13 +120,14 @@ form.addEventListener('submit', (e) => {
         showWorkers();
         form.reset();
         imageWorker.src = "";
-        imageWorker.style.display = "none";
+   /*      imageWorker.style.display = "none"; */
         document.getElementById('formulaire').style.display = "none";
-        errorParagraphe.style.display="none";
         console.log(workers);
         console.log(errorParagraphe);
 
     }
+
+
 })
 
 //L'affichage de l'image
@@ -129,3 +140,50 @@ function changeImage(src) {
         imageWorker.style.display = "block";
     }
 }
+
+
+//L'etape de diviser les employées
+btnsAddToRoom.forEach(btn=>{
+    btn.addEventListener('click',(e)=>{
+        /* console.log(btn.dataset.action); */
+        modalSection.style.display = "flex";
+        modalContent.innerHTML=`<h3>Select worker to assign</h3>${
+
+            workers.map((worker, index) =>
+            `
+                <div class="cardStaff" data-id="${index}">
+                        <div class="cardInfo">
+                            <img src='${worker.image}' class="imgCard">
+                            <div>
+                                <h3>${worker.nom}</h3>
+                                <p>${worker.role}</p>
+                            </div>
+                        </div>
+                        <button class="btnEditStaff">Edit</button>
+                </div> 
+    
+            `
+        ).join("")
+        }
+        <button id="btnCloseModal">Close</button>
+        `
+        document.getElementById("btnCloseModal").addEventListener('click',()=>{
+                modalSection.style.display = "none";
+        })
+    });
+});
+
+
+//une fonction pour le button annuler qui cache le formulaire
+/* btnAnnuler.addEventListener('click',(e)=>{
+    e.preventDefault();
+    document.getElementById('formulaire').style.display = "none";
+})
+
+
+document.querySelectorAll('.cardStaff').forEach(card=>{
+    card.addEventListener('click',(e)=>{
+        console.log(card.dataset.id);
+        
+    })
+} )*/
