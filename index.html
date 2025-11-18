@@ -34,35 +34,39 @@
 
         <!-- rooms section start -->
         <div id="rooms">
-            <div class="room-item">
-                <h5>Salle de conférence</h5>
-                <button class="addToRoom">+</button>
+            <div class="room-item room-1">
+                <h5>Conference Room</h5>
+                <button class="addToRoom" id="conferenceRoom">+</button>
             </div>
-            <div class="room-item">
+            <div class="room-item room-2 couloir">
                 
             </div>
-            <div class="room-item">
+            <div class="room-item room-8 couloir">
+                
+            </div>
+            <div class="room-item room-3">
                 <h5>Réception</h5>
-                <button class="addToRoom">+</button>
+                <button class="addToRoom" id="reception">+</button>
             </div>
-            <div class="room-item">
+            <div class="room-item room-4">
                 <h5>Salle des serveurs</h5>
-                <button class="addToRoom">+</button>
+                <button class="addToRoom" id="salleServeurs">+</button>
             </div>
-            <div class="room-item">
-                <h5>Salle de sécurité</h5>
-                <button class="addToRoom">+</button>
+            <div class="room-item room-4">
+                <h5>Service Room</h5>
+                <button class="addToRoom" id="serviceRoom">+</button>
             </div>
-            <div class="room-item">
-                
+            <div class="room-item room-5">
+                <h5>Security Room</h5>
+                <button class="addToRoom" id="SecurityRoom">+</button>
             </div>
-            <div class="room-item">
-                <h5>Salle du personnel</h5>
-                <button class="addToRoom">+</button>
+            <div class="room-item room-6">
+                <h5>Staff Room</h5>
+                <button class="addToRoom" id="staffRoom">+</button>
             </div>
-            <div class="room-item">
-                <h5>Salle d’archives</h5>
-                <button class="addToRoom">+</button>
+            <div class="room-item room-7">
+                <h5>Vault</h5>
+                <button class="addToRoom" id="vault">+</button>
             </div>
         </div>
         <!-- rooms section start -->
@@ -74,6 +78,7 @@
             <form action="" id="formAddWorker">
                 <label >Name:</label>
                 <input type="text" placeholder="Entre votre nom" id="workerName">
+                <p class="errorMessage"></p>
                 <label >Role:</label>
                 <select name="" id="workerRole">
                     <option >Option</option>
@@ -83,9 +88,10 @@
                     <option >Manager</option>
                     <option >Autre</option>
                 </select>
+                <p class="errorMessage"></p>
                 <label >Photo (URL):</label>
-                <input type="file" accept="image/*" id="inputImageWorker" onchange="changeImage()" >
-                <img id="imageWorker" src="" alt="Aperçu de la photo" style="max-width: 100px; max-height: 100px; margin-top: 10px;border-radius: 50%;text-align: center;display: none;">
+                <input type="text" accept="image/*" id="inputImageWorker" onchange="changeImage(this.value)" >
+                <img id="imageWorker" src="/images/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg" alt="Aperçu de la photo" style="max-width: 100px; max-height: 100px; margin-top: 10px;border-radius: 50%;text-align: center;">
                 <h4 >Experiences:</h4>
                 <label >Company:</label>
                 <input type="text" placeholder="Entrez votre expérience" id="workerExperienceCompany">
@@ -102,6 +108,7 @@
                 <input type="date" id="dateDebutExperience">
                 <label >To:</label>
                 <input type="date" id="dateFinExperience">
+                <p class="errorMessage"></p>
                 <div>
                     <button id="btnSaveWorker"><i class="fa-solid fa-floppy-disk"></i>Enregistrer</button>
                      <button id="btnAnnuler"><i class="fa-solid fa-delete-left"></i>Annuler</button>
