@@ -36,9 +36,9 @@
 
         <!-- rooms section start -->
         <div id="rooms">
-            <div class="room-item room-1">
-                <h5>Conference Room</h5>
-                <button class="addToRoom" data-action="ajoutez" id="conferenceRoom">+</button>
+            <div class="room-item room-1" data-salle="salleConference">
+                <h5>Salle de Conférence</h5>
+                <button class="addToRoom" data-action="assignToConferenceRoom" id="conferenceRoom">+</button>
             </div>
             <div class="room-item room-2 couloir">
 
@@ -46,29 +46,32 @@
             <div class="room-item room-8 couloir">
 
             </div>
-            <div class="room-item room-3">
+            <div class="room-item room-3" data-salle="salleReception">
                 <h5>Réception</h5>
-                <button class="addToRoom" id="reception">+</button>
+                 <div class="roomContent"></div>
+                <button class="addToRoom" data-action="assignToRéceptionRoom" id="reception">+</button>
             </div>
             <div class="room-item room-4">
+                <h5></h5>
+                
+            </div>
+            <div class="room-item room-4" data-salle="salleServeurs">
                 <h5>Salle des serveurs</h5>
-                <button class="addToRoom" id="salleServeurs">+</button>
+                <div class="roomContent"></div>
+                <button class="addToRoom" data-action="assignToServerRoom" id="serviceRoom">+</button>
             </div>
-            <div class="room-item room-4">
-                <h5>Service Room</h5>
-                <button class="addToRoom" id="serviceRoom">+</button>
+            <div class="room-item room-5"data-salle="salleSecurite">
+                <h5>Salle de sécurité</h5>
+                <div class="roomContent"></div>
+                <button class="addToRoom" data-action="assignToSecurityRoom" id="SecurityRoom">+</button>
             </div>
-            <div class="room-item room-5">
-                <h5>Security Room</h5>
-                <button class="addToRoom" id="SecurityRoom">+</button>
+            <div class="room-item room-6" id="sallePersonnel" data-salle="sallePersonnel">
+                <h5>Salle du personnel</h5>
+                <button class="addToRoom" data-action="assignToStaffRoom" id="staffRoom">+</button>
             </div>
-            <div class="room-item room-6">
-                <h5>Staff Room</h5>
-                <button class="addToRoom" id="staffRoom">+</button>
-            </div>
-            <div class="room-item room-7">
-                <h5>Vault</h5>
-                <button class="addToRoom" id="vault">+</button>
+            <div class="room-item room-7" id="salleArchive" data-salle="salleArchives">
+                <h5>Salle d’archives</h5>
+                <button class="addToRoom" data-action="assignToVaultRoom" id="vault">+</button>
             </div>
         </div>
         <!-- rooms section start -->
@@ -88,6 +91,7 @@
                     <option>Technicien IT</option>
                     <option>Agent de sécurité</option>
                     <option>Manager</option>
+                    <option>Nettoyage</option>
                     <option>Autre</option>
                 </select>
                 <p class="errorMessage"></p>
@@ -105,6 +109,7 @@
                     <option>Technicien IT</option>
                     <option>Agent de sécurité</option>
                     <option>Manager</option>
+                    <option>Nettoyage</option>
                     <option>Autre</option>
                 </select>
                 <label>From:</label>
@@ -125,7 +130,7 @@
     <!-- modal des employées start -->
      <section id ="modal">
         <div id="modalContent">
-            
+
         </div>
      </section>
     <!-- modal des employées start -->
