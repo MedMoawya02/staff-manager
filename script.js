@@ -124,7 +124,7 @@ form.addEventListener('submit', (e) => {
         localStorage.setItem('workers', JSON.stringify(workers))
         showWorkers();
         form.reset();
-        imageWorker.src = "";
+        
         /*      imageWorker.style.display = "none"; */
         document.getElementById('formulaire').style.display = "none";
         console.log(workers);
@@ -248,12 +248,35 @@ function assignToRoom(workers,roomClass){
 
     `
 }
+
 //fonction pour retirer un employé depuis une salle 
 document.getElementById('rooms').addEventListener('click',(e)=>{
     let btnDelete=e.target.closest('.deleteWorker');
+    let cardStaff = btnDelete.closest('.cardStaff');
     if(btnDelete){
-        console.log(btnDelete);
-        
+        let index=parseInt(btnDelete.dataset.roomIndex);
+        let roomName=btnDelete.dataset.roomArrayName;
+        //
+        let arrayName=null;
+        switch (roomName) {
+            case "room-3" :
+                arrayName=receptionSalle;
+                break;
+            case "room-4" :
+                arrayName=salleServeur;
+                break;
+            case "room-5" :
+                arrayName=salleSécurité;
+                break;
+            default:
+                break;
+        }
+        //retirer depuis la salle et l'ajout chez unssigned list
+        let [workerUnssigned]=arrayName.splice(index,1);
+        workers.push(workerUnssigned);
+        localStorage.setItem('workers', JSON.stringify(workers));
+        cardStaff.remove();
+        showWorkers();        
     }
 
 })
