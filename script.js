@@ -63,6 +63,7 @@ btnClose.addEventListener('click', () => {
 
 //show data
 function showWorkers() {
+    console.log(workers)
     staffCards.innerHTML = workers.map((worker, index) =>
         `
             <div class="cardStaff" data-id="${index}">
@@ -77,8 +78,10 @@ function showWorkers() {
             </div> 
 
         `
-    ).join("")
+    ).join("");
 }
+
+
 
 //logique qui permet l'ajout des plusieurs experiences pour chaque employée
 btnAddExperience.addEventListener('click', (e) => {
@@ -148,7 +151,7 @@ form.addEventListener('submit', (e) => {
         errorParagraphe[2].style.display = "block";
         isValid = false;
     } else {
-        errorParagraphe[0].style.display = "none";
+        errorParagraphe[2].style.display = "none";
     }
     if (tel.value == "" || !telRegex.test(tel.value)) {
         errorParagraphe[3].innerHTML = "Numero du telephone incorrect."
@@ -271,15 +274,15 @@ modalSection.addEventListener('click', (e) => {
 function assignToRoom(workers, roomClass) {
     document.querySelector('.' + roomClass + ' div').innerHTML = `${workers.map((worker, index) =>
         `
-            <div class="cardStaff modalCards" data-id="${index}">
-            <div class="cardInfo">
-            <img src='${worker.image}' class="imgCard">
-            <div>
-            <h3>${worker.nom}</h3>
-            <p>${worker.role}</p>
-            </div>
-            </div>
-            <button class="deleteWorker" type="button"data-room-index="${index}" data-room-array-name="${roomClass}">&#x2715</button>
+            <div class="cardStaff " data-id="${index}">
+                <div class="cardInfo">
+                    <img src='${worker.image}' class="imgCard">
+                    <div>
+                        <h3>${worker.nom}</h3>
+                        <p>${worker.role}</p>
+                    </div>
+                </div>
+                <button class="deleteWorker" type="button"data-room-index="${index}" data-room-array-name="${roomClass}">&#x2715</button>
             </div> 
             `
     ).join("")
@@ -291,9 +294,10 @@ function assignToRoom(workers, roomClass) {
 //fonction pour retirer un employé depuis une salle 
 document.getElementById('rooms').addEventListener('click', (e) => {
     let btnDelete = e.target.closest('.deleteWorker');
-    let cardStaff = btnDelete.closest('.cardStaff');
+   /*  let cardStaff = btnDelete.closest('.cardStaff'); */
     let arrayName = null;
     if (btnDelete) {
+        e.stopPropagation();
         let index = parseInt(btnDelete.dataset.roomIndex);
         let roomName = btnDelete.dataset.roomArrayName;
         //
@@ -313,23 +317,25 @@ document.getElementById('rooms').addEventListener('click', (e) => {
         //retirer depuis la salle et l'ajout chez unssigned list
         let [workerUnssigned] = arrayName.splice(index, 1);
         workers.push(workerUnssigned);
-        cardStaff.remove();
+        assignToRoom(arrayName, roomName);
         localStorage.setItem('workers', JSON.stringify(workers));
         showWorkers();
     }
 })
 
+
 //l'affichage du detail d'un worker
-let unssignedCards = document.querySelectorAll(".cardStaff");
-unssignedCards.forEach(card => {
-    let index = card.dataset.id;
-    let workerSelected = workers[index];
-    card.addEventListener('click', () => {
-        modalSection.style.display="flex";
-        console.log(workerSelected);
+staffCards.addEventListener('click', (e) => {
+    let card = e.target.closest('.cardStaff');
+    if (card) { 
+        console.log(card.dataset.id);
+        let index = parseInt(card.dataset.id);
+        let workerSelected = workers[index];
+        modalSection.style.display = "flex";
         detailWorker(workerSelected);
-    }) 
-})
+    }
+});
+//
 function detailWorker(workerSelected){
      modalContent.innerHTML = `
         <div class="worker-details">

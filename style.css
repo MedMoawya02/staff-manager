@@ -123,9 +123,10 @@ body {
         "r2 c1 c2 c2"
         "r2 c1 r5 r6"
     ;
+    grid-template-columns: 37% 18% 22% 22%;
     /*grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
-    gap: 10px;
-    padding: 10px;
+    /* gap: 10px; */
+    /* padding: 10px; */
     min-height: 50vh;
     /* Minimum height on mobile */
 }
@@ -170,35 +171,31 @@ body {
     grid-area: r6;
     background-color: dodgerblue;
 }
+#rooms .room-item{
+    width: 100%;
+}
 
 #rooms .room-item .roomContent {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
     justify-content: center;
     align-items: center;
 }
 
-#rooms .room-item .roomContent .deleteWorker {
+
+/* #rooms .room-item .roomContent .deleteWorker {
     background-color: #e74c3c;
-    /* Rouge vif */
     color: white;
-    /* Texte blanc */
     border: none;
     border-radius: 50%;
-    /* Crée la forme circulaire */
     width: 30px;
-    /* Définit la largeur */
     height: 30px;
-    /* Définit la hauteur (doit être égale à la largeur pour un cercle) */
     cursor: pointer;
     font-size: 16px;
     line-height: 1;
-    /* Assure que le 'X' est centré verticalement */
     padding: 0;
-    /* Supprime le padding par défaut */
-    /* Centre le contenu horizontalement */
-}
+} */
 
 #rooms .room-item {
     display: flex;
@@ -209,6 +206,7 @@ body {
     /* background-color: rgba(255, 255, 255, 0.1);*/
     border-radius: 8px;
     min-height: 150px;
+    opacity: 0.2;
 }
 
 #rooms .room-item button {
@@ -222,6 +220,46 @@ body {
     margin-top: 10px;
 }
 
+#rooms .cardStaff {
+    /* تصغير الحجم الكلي للبطاقة */
+    max-width: 150px; /* تحديد عرض أصغر */
+    width: auto;
+    padding: 5px;
+    margin: 5px;
+    /* تحويل الترتيب ليصبح عموديًا لتوفير المساحة */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    box-shadow: none; /* تقليل الظل لتبسيط المظهر */
+}
+#rooms .cardStaff .imgCard {
+    width: 15px; 
+    height: 15px;
+    margin: 0 0 5px 0; /* مسافة أسفل الصورة */
+    border-width: 1px; /* تصغير سمك الحدود */
+}
+#rooms .cardStaff h3 {
+    font-size: 0.6em;
+    margin: 0;
+}
+#rooms .cardStaff p {
+    font-size: 0.5em;
+    margin: 0;
+}
+#rooms .cardStaff .deleteWorker {
+    width: 15px; 
+    height: 15px;
+    font-size: 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    /* تقليل المسافات */
+    padding: 0; 
+    line-height: 20px;
+    
+   
+}
 /* Formulaire (Modal) - Ensure full coverage and centered content */
 #formulaire {
     width: 100%;
@@ -508,8 +546,8 @@ body {
 @media (min-width: 600px) {
     #rooms {
         /*grid-template-columns: repeat(3, 1fr);*/
-        padding: 20px;
-        gap: 20px;
+        /* padding: 20px; */
+        /* gap: 20px; */
     }
 
     #cards {
@@ -555,8 +593,8 @@ body {
         width: 75%;
         /*grid-template-columns: repeat(4, 1fr); 
         grid-template-rows: repeat(2, 1fr);*/
-        padding: 30px;
-        gap: 30px;
+        /* padding: 30px;
+        gap: 30px; */
         min-height: 100vh;
     }
 
@@ -564,4 +602,6 @@ body {
         position: static;
         margin-top: auto;
     }
+
+    
 }
