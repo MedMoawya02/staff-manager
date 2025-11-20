@@ -77,6 +77,7 @@
         <!-- rooms section start -->
 
     </div>
+
     <!-- formulair start -->
     <section id="formulaire">
         <div id="formulaireContent">
@@ -99,24 +100,35 @@
                 <input type="text" accept="image/*" id="inputImageWorker" onchange="changeImage(this.value)">
                 <img id="imageWorker" src="/images/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg" alt="Aperçu de la photo"
                     style="max-width: 100px; max-height: 100px; margin-top: 10px;border-radius: 50%;text-align: center;">
-                <h4>Experiences:</h4>
-                <label>Company:</label>
-                <input type="text" placeholder="Entrez votre expérience" id="workerExperienceCompany">
-                <label>Role:</label>
-                <select name="" id="workerExperienceRole">
-                    <option>Option</option>
-                    <option>Réceptionniste</option>
-                    <option>Technicien IT</option>
-                    <option>Agent de sécurité</option>
-                    <option>Manager</option>
-                    <option>Nettoyage</option>
-                    <option>Autre</option>
-                </select>
-                <label>From:</label>
-                <input type="date" id="dateDebutExperience">
-                <label>To:</label>
-                <input type="date" id="dateFinExperience">
+                <label>Email:</label>
+                <input type="email" placeholder="Entre votre email" id="workerEmail">
                 <p class="errorMessage"></p>
+                <label>Name:</label>
+                <input type="number" placeholder="Entre votre numero" id="workerTel">
+                <p class="errorMessage"></p>
+                <!-- div pour les experiences -->
+                <div id="experienceInputs">
+                    <h4>Experiences:</h4>
+                    <label>Company:</label>
+                    <input type="text" placeholder="Entrez votre expérience" id="workerExperienceCompany">
+                    <label>Role:</label>
+                    <select name="" id="workerExperienceRole">
+                        <option>Option</option>
+                        <option>Réceptionniste</option>
+                        <option>Technicien IT</option>
+                        <option>Agent de sécurité</option>
+                        <option>Manager</option>
+                        <option>Nettoyage</option>
+                        <option>Autre</option>
+                    </select>
+                    <label>From:</label>
+                    <input type="date" id="dateDebutExperience">
+                    <label>To:</label>
+                    <input type="date" id="dateFinExperience">
+                    <p class="errorMessage"id="errorExperience"></p>
+                </div>
+                <button id="btnAddExperience"><i class="fa-solid fa-plus"></i>Ajouter</button>
+                <!-- div pour les buttons -->
                 <div>
                     <button id="btnSaveWorker"><i class="fa-solid fa-floppy-disk"></i>Enregistrer</button>
                     <button id="btnAnnuler" ><i class="fa-solid fa-delete-left" ></i>Annuler</button>
