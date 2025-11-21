@@ -24,10 +24,12 @@ let errorParagraphe = document.querySelectorAll('#formAddWorker .errorMessage');
 let listExperience = [];
 
 //data for rooms section
+let conferenceSalle = [];
 let receptionSalle = [];
 let salleServeur = [];
 let salleSécurité = [];
 let manager = [];
+let salleArchives = [];
 let btnsAddToRoom = document.querySelectorAll('#rooms .room-item .addToRoom');
 let receptionRoom = document.querySelector('.room-3');
 
@@ -35,6 +37,8 @@ let receptionRoom = document.querySelector('.room-3');
 let modalSection = document.getElementById('modal');
 let modalContent = document.getElementById('modalContent');
 
+//pour la partie de l'edit 
+let editIndex = null;
 
 //local storage
 let workers;
@@ -74,7 +78,7 @@ function showWorkers() {
                             <p>${worker.role}</p>
                         </div>
                     </div>
-                    <button class="btnEditStaff">Edit</button>
+                    <button class="btnEditStaff" data-id="${index}">Edit</button>
             </div> 
 
         `
@@ -86,18 +90,18 @@ function showWorkers() {
 //logique qui permet l'ajout des plusieurs experiences pour chaque employée
 btnAddExperience.addEventListener('click', (e) => {
     e.preventDefault();
-    let errorExperience="";
+    let errorExperience = "";
     let newExperience = {
         company: company.value,
         workerExperienceRole: workerExperienceRole.value,
         dateDebutExperience: dateDebutExperience.value,
         dateFinExperience: dateFinExperience.value,
     }
-    if (company.value == "" || workerExperienceRole.value == "Option"||dateDebutExperience.value=="" || dateFinExperience.value=="") {
-        errorExperience="veuillez remplir tous les champs apres l'ajout de votre experinces."
+    if (company.value == "" || workerExperienceRole.value == "Option" || dateDebutExperience.value == "" || dateFinExperience.value == "") {
+        errorExperience = "veuillez remplir tous les champs apres l'ajout de votre experinces."
     }
     else if (dateDebutExperience.value > dateFinExperience.value) {
-        errorExperience="La date de début de l'expérience ne peut pas être après la date de fin."
+        errorExperience = "La date de début de l'expérience ne peut pas être après la date de fin."
     }
     else {
         listExperience.push(newExperience);
@@ -108,12 +112,12 @@ btnAddExperience.addEventListener('click', (e) => {
         console.log(listExperience);
         document.getElementById('errorExperience').style.display = "none";
     }
-        document.getElementById('errorExperience').innerHTML = errorExperience;
-        if(errorExperience!=""){
-            document.getElementById('errorExperience').style.display = "block";
-        }else{
-            document.getElementById('errorExperience').style.display = "none";
-        }
+    document.getElementById('errorExperience').innerHTML = errorExperience;
+    if (errorExperience != "") {
+        document.getElementById('errorExperience').style.display = "block";
+    } else {
+        document.getElementById('errorExperience').style.display = "none";
+    }
 })
 
 
@@ -170,18 +174,25 @@ form.addEventListener('submit', (e) => {
 
     if (!isValid) {
         return;
+    } 
+    
+    //la soumission de l'edit
+    if (editIndex !== null) {
+        workers[editIndex] = newWorker;
+        editIndex=null;
+        document.getElementById('btnSaveWorker').innerHTML = "Sauvegarder";
+        document.getElementById('experienceInputs').style.display = "block";
     } else {
-        //apres la soumission,j'ai vidées la liste des experience 
-        listExperience = [];
-        //pousser la nouvelle experience 
         workers.push(newWorker);
-        localStorage.setItem('workers', JSON.stringify(workers))
-        showWorkers();
-        form.reset();
-        document.getElementById('formulaire').style.display = "none";
-        console.log(workers);
     }
+
+    localStorage.setItem('workers', JSON.stringify(workers))
+    showWorkers();
+    form.reset();
+    document.getElementById('formulaire').style.display = "none";
+    listExperience = [];
 })
+
 
 //L'affichage de l'image
 function changeImage(src) {
@@ -231,6 +242,17 @@ modalSection.addEventListener('click', (e) => {
         let idAssigned = clickedCard.dataset.id;
         let workerRole = workers[idAssigned].role;
 
+        //salle de conference
+        if (assignRoom == "assignToConferenceRoom") {
+            if (workerRole != "Option") {
+                let [workerAssigne] = workers.splice(idAssigned, 1);
+                conferenceSalle.push(workerAssigne);
+                assignToRoom(conferenceSalle, 'room-1');
+            } else {
+                alert("Veuillez sélectionner un rôle valide pour ce travailleur.");
+            }
+        }
+
         //salle de reception
         if (assignRoom == "assignToRéceptionRoom") {
             if (workerRole == "Réceptionniste" || workerRole == "Manager" || workerRole == "Nettoyage") {
@@ -264,6 +286,18 @@ modalSection.addEventListener('click', (e) => {
                 alert("you should assign just agent sécurité or manager or nettoyage");
             }
         }
+
+        //salle des archives
+        if (assignRoom == "assignToVaultRoom") {
+            if (workerRole == "Nettoyage") {
+                alert("You cannot assign to this zone.");
+            } else {
+                let [workerAssigne] = workers.splice(idAssigned, 1);
+                salleArchives.push(workerAssigne);
+                assignToRoom(salleArchives, 'room-7');
+            }
+        }
+
         modalSection.style.display = "none";
         localStorage.setItem('workers', JSON.stringify(workers));
         showWorkers();
@@ -294,7 +328,7 @@ function assignToRoom(workers, roomClass) {
 //fonction pour retirer un employé depuis une salle 
 document.getElementById('rooms').addEventListener('click', (e) => {
     let btnDelete = e.target.closest('.deleteWorker');
-   /*  let cardStaff = btnDelete.closest('.cardStaff'); */
+    /*  let cardStaff = btnDelete.closest('.cardStaff'); */
     let arrayName = null;
     if (btnDelete) {
         e.stopPropagation();
@@ -302,6 +336,9 @@ document.getElementById('rooms').addEventListener('click', (e) => {
         let roomName = btnDelete.dataset.roomArrayName;
         //
         switch (roomName) {
+            case "room-1":
+                arrayName = conferenceSalle;
+                break;
             case "room-3":
                 arrayName = receptionSalle;
                 break;
@@ -310,6 +347,9 @@ document.getElementById('rooms').addEventListener('click', (e) => {
                 break;
             case "room-5":
                 arrayName = salleSécurité;
+                break;
+            case "room-5":
+                arrayName = salleArchives;
                 break;
             default:
                 break;
@@ -327,17 +367,42 @@ document.getElementById('rooms').addEventListener('click', (e) => {
 //l'affichage du detail d'un worker
 staffCards.addEventListener('click', (e) => {
     let card = e.target.closest('.cardStaff');
-    if (card) { 
-        console.log(card.dataset.id);
+    let btnEdit = e.target.closest('.btnEditStaff');
+
+    //l'affichage le formulaire pour editer
+    if (btnEdit) {
+        console.log(btnEdit);
+        e.stopPropagation();
+        
+        let index = Number(btnEdit.dataset.id);
+        editIndex = index;
+        let workerToEdit = workers[index];
+        console.log(workerToEdit);
+        document.getElementById('formulaire').style.display = "flex";
+        nom.value = workerToEdit.nom;
+        role.value = workerToEdit.role;
+        imageWorker.src = workerToEdit.image;
+        email.value = workerToEdit.email;
+        tel.value = workerToEdit.tel;
+        listExperience = [...workerToEdit.experience];
+
+        document.getElementById('btnSaveWorker').innerHTML = "Modifier";
+        document.getElementById('experienceInputs').style.display = "none";
+
+        return;
+    }
+
+    //l'affichage du detail
+    if (card) {
         let index = parseInt(card.dataset.id);
         let workerSelected = workers[index];
         modalSection.style.display = "flex";
         detailWorker(workerSelected);
     }
+
 });
-//
-function detailWorker(workerSelected){
-     modalContent.innerHTML = `
+function detailWorker(workerSelected) {
+    modalContent.innerHTML = `
         <div class="worker-details">
             <h2>Détails du Travailleur</h2>
             
@@ -362,20 +427,20 @@ function detailWorker(workerSelected){
             </div>
             <h3>Expériences professionnelles</h3>
             <div class="experiences-list">
-                ${workerSelected.experience.length> 0
-                    ? workerSelected.experience.map(exp => `
+                ${workerSelected.experience.length > 0
+            ? workerSelected.experience.map(exp => `
                         <div class="experience-item">
                             <h4>${exp.workerExperienceRole} chez ${exp.company}</h4>
                             <p>Du ${exp.dateDebutExperience} au ${exp.dateFinExperience}</p>
                         </div>
                     `).join('')
-                    : '<p>Aucune expérience enregistrée pour ce travailleur.</p>'
-                }
+            : '<p>Aucune expérience enregistrée pour ce travailleur.</p>'
+        }
             </div>
         </div>
         <button id="btnCloseModalDetail">Close</button>
     `;
-    document.getElementById('btnCloseModalDetail').addEventListener('click',()=>{
-        modalSection.style.display="none";
+    document.getElementById('btnCloseModalDetail').addEventListener('click', () => {
+        modalSection.style.display = "none";
     })
 }

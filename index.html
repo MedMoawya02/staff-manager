@@ -23,11 +23,12 @@
             <button class="btnAddWorker">Add new worker</button>
         </div>
         <!-- Staffs section end -->
-         
+
         <!-- rooms section start -->
         <div id="rooms">
             <div class="room-item room-1" data-salle="salleConference">
                 <h5>Salle de Conférence</h5>
+                <div class="roomContent"></div>
                 <button class="addToRoom" data-action="assignToConferenceRoom" id="conferenceRoom">+</button>
             </div>
             <div class="room-item room-2 couloir">
@@ -57,10 +58,12 @@
             </div>
             <div class="room-item room-6" id="sallePersonnel" data-salle="sallePersonnel">
                 <h5>Salle du personnel</h5>
+                <div class="roomContent"></div>
                 <button class="addToRoom" data-action="assignToStaffRoom" id="staffRoom">+</button>
             </div>
             <div class="room-item room-7" id="salleArchive" data-salle="salleArchives">
                 <h5>Salle d’archives</h5>
+                <div class="roomContent"></div>
                 <button class="addToRoom" data-action="assignToVaultRoom" id="vault">+</button>
             </div>
         </div>
@@ -116,8 +119,8 @@
                     <label>To:</label>
                     <input type="date" id="dateFinExperience">
                     <p class="errorMessage"id="errorExperience"></p>
+                    <button id="btnAddExperience"><i class="fa-solid fa-plus"></i>Ajouter</button>
                 </div>
-                <button id="btnAddExperience"><i class="fa-solid fa-plus"></i>Ajouter</button>
                 <!-- div pour les buttons -->
                 <div>
                     <button id="btnSaveWorker"><i class="fa-solid fa-floppy-disk"></i>Enregistrer</button>

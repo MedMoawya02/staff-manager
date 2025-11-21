@@ -133,43 +133,43 @@ body {
 
 .room-1 {
     grid-area: r1;
-    background-color: #08d820;
+   /*  background-color: #08d820; */
 }
 
 .room-2 {
     grid-area: c1;
-    background-color: #0000FF;
+  /*   background-color: #0000FF; */
 }
 
 .room-8 {
     grid-area: c2;
-    background-color: #0000FF;
+    /* background-color: #0000FF; */
 }
 
 .room-3 {
 
     grid-area: r2;
-    background-color: chocolate;
+   /*  background-color: chocolate; */
 }
 
 .room-4 {
     grid-area: r3;
-    background-color: #dc3545;
+    /* background-color: #dc3545; */
 }
 
 .room-5 {
     grid-area: r4;
-    background-color: darkolivegreen;
+    /* background-color: darkolivegreen; */
 }
 
 .room-6 {
     grid-area: r5;
-    background-color: darkturquoise;
+    /* background-color: darkturquoise; */
 }
 
 .room-7 {
     grid-area: r6;
-    background-color: dodgerblue;
+   /*  background-color: dodgerblue; */
 }
 #rooms .room-item{
     width: 100%;
@@ -206,7 +206,7 @@ body {
     /* background-color: rgba(255, 255, 255, 0.1);*/
     border-radius: 8px;
     min-height: 150px;
-    opacity: 0.2;
+    
 }
 
 #rooms .room-item button {
