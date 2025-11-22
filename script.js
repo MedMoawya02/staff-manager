@@ -1,6 +1,7 @@
 //data staffs section
 let staffCards = document.getElementById('cards');
 let btnAddWorker = document.querySelector('.btnAddWorker');
+let inputSearchEmp=document.getElementById('inputSearchEmp');
 ///data of form
 let form = document.getElementById('formAddWorker');
 let nom = document.getElementById('workerName');
@@ -328,7 +329,6 @@ function assignToRoom(workers, roomClass) {
 //fonction pour retirer un employé depuis une salle 
 document.getElementById('rooms').addEventListener('click', (e) => {
     let btnDelete = e.target.closest('.deleteWorker');
-    /*  let cardStaff = btnDelete.closest('.cardStaff'); */
     let arrayName = null;
     if (btnDelete) {
         e.stopPropagation();
@@ -364,7 +364,7 @@ document.getElementById('rooms').addEventListener('click', (e) => {
 })
 
 
-//l'affichage du detail d'un worker
+//l'affichage du detail d'un worker et la modification
 staffCards.addEventListener('click', (e) => {
     let card = e.target.closest('.cardStaff');
     let btnEdit = e.target.closest('.btnEditStaff');
@@ -444,3 +444,32 @@ function detailWorker(workerSelected) {
         modalSection.style.display = "none";
     })
 }
+
+//search
+inputSearchEmp.addEventListener('keyup',(e)=>{
+    let value=e.target.value.toLowerCase();
+    console.log(value);
+    let listFilter=workers.filter(worker=>worker.nom.toLowerCase().includes(value.trim()));
+    console.log(listFilter);
+    if(!listFilter){
+        return;
+    }else{
+        staffCards.innerHTML = listFilter.map((worker, index) =>
+        `
+            <div class="cardStaff" data-id="${index}">
+                    <div class="cardInfo">
+                        <img src='${worker.image}' class="imgCard">
+                        <div>
+                            <h3>${worker.nom}</h3>
+                            <p>${worker.role}</p>
+                        </div>
+                    </div>
+                    <button class="btnEditStaff" data-id="${index}">Edit</button>
+            </div> 
+
+        `
+    ).join("");
+    }
+    
+    
+})
