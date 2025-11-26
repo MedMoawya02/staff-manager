@@ -30,6 +30,7 @@ let receptionSalle = [];
 let salleServeur = [];
 let salleSécurité = [];
 let manager = [];
+let sallePersonnel=[];
 let salleArchives = [];
 let btnsAddToRoom = document.querySelectorAll('#rooms .room-item .addToRoom');
 let receptionRoom = document.querySelector('.room-3');
@@ -60,6 +61,10 @@ const companyRegex = /^[A-Za-z0-9\s'-]{2,}$/;
 //Afficher/cacher le formulaire 
 btnAddWorker.addEventListener('click', () => {
     document.getElementById('formulaire').style.display = "flex";
+})
+btnAnnuler.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('formulaire').style.display = "none";
 })
 btnClose.addEventListener('click', () => {
     document.getElementById('formulaire').style.display = "none";
@@ -110,7 +115,6 @@ btnAddExperience.addEventListener('click', (e) => {
         workerExperienceRole.value = "Option";
         dateDebutExperience.value = "";
         dateFinExperience.value = "";
-        console.log(listExperience);
         document.getElementById('errorExperience').style.display = "none";
     }
     document.getElementById('errorExperience').innerHTML = errorExperience;
@@ -186,7 +190,6 @@ form.addEventListener('submit', (e) => {
     } else {
         workers.push(newWorker);
     }
-
     localStorage.setItem('workers', JSON.stringify(workers))
     showWorkers();
     form.reset();
@@ -199,7 +202,7 @@ form.addEventListener('submit', (e) => {
 function changeImage(src) {
     /* imageWorker.src=URL.createObjectURL(image.files[0]); */
     if (src == "") {
-        imageWorker.src = "images/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg";
+        imageWorker.src = "images/avatar.jpg";
     } else {
         imageWorker.src = src;
         imageWorker.style.display = "block";
@@ -211,7 +214,44 @@ let assignRoom = null;
 btnsAddToRoom.forEach(btn => {
     btn.addEventListener('click', (e) => {
         modalSection.style.display = "flex";
-        modalContent.innerHTML = `<h3>Select worker to assign</h3>${workers.map((worker, index) =>
+        assignRoom = btn.dataset.action;
+        console.log(assignRoom);
+     
+        if(assignRoom=="assignToConferenceRoom"||assignRoom=="assignToStaffRoom"){       
+            let empFiltred=workers.filter(emp=>{return emp.role!=="Option"});
+            showModal(empFiltred);
+        }
+
+            if(assignRoom=="assignToServerRoom"){       
+            let empFiltred=workers.filter(emp=>{return emp.role=="Technicien IT"||emp.role=="Manager"||emp.role=="Nettoyage"});
+            showModal(empFiltred);
+        }
+
+        if(assignRoom=="assignToSecurityRoom"){       
+            let empFiltred=workers.filter(emp=>{return emp.role=="Agent de sécurité"||emp.role=="Manager"|| emp.role=="Nettoyage"});
+            showModal(empFiltred);
+        }
+
+         if(assignRoom=="assignToRéceptionRoom"){       
+            let empFiltred=workers.filter(emp=>{return emp.role=="Réceptionniste"||emp.role=="Manager"|| emp.role=="Nettoyage"});
+            showModal(empFiltred);
+        }
+
+        if(assignRoom=="assignToVaultRoom"){       
+            let empFiltred=workers.filter(emp=>{return emp.role!=="Nettoyage"});
+            showModal(empFiltred);
+        }
+
+        localStorage.setItem('workers',JSON.stringify(workers));
+
+        //la fermuture du modal
+        document.getElementById("btnCloseModal").addEventListener('click', () => {
+            modalSection.style.display = "none";
+        })
+    });
+});
+function showModal(emp){
+     modalContent.innerHTML = `<h3>Select worker to assign</h3>${emp.map((worker, index) =>
             `
             <div class="cardStaff modalCards" data-id="${index}">
             <div class="cardInfo">
@@ -228,14 +268,8 @@ btnsAddToRoom.forEach(btn => {
             }
     <button id="btnCloseModal">Close</button>
     `
-        assignRoom = btn.dataset.action;
+}
 
-        //la fermuture du modal
-        document.getElementById("btnCloseModal").addEventListener('click', () => {
-            modalSection.style.display = "none";
-        })
-    });
-});
 
 modalSection.addEventListener('click', (e) => {
     let clickedCard = e.target.closest('.modalCards');
@@ -288,10 +322,21 @@ modalSection.addEventListener('click', (e) => {
             }
         }
 
+        //salle des personnelles
+        if(assignRoom=="assignToStaffRoom"){
+            if(workerRole!="Autre"){
+                let [workerAssigned]=workers.splice(idAssigned,1);
+                sallePersonnel.push(workerAssigned);
+                assignToRoom(sallePersonnel,'room-6')
+            }else{
+                alert("You cannot assign to this zone.");
+            }
+        }
+
         //salle des archives
         if (assignRoom == "assignToVaultRoom") {
             if (workerRole == "Nettoyage") {
-                alert("You cannot assign to this zone.");
+                alert("You cannot assign nettoyage workers to this zone.");
             } else {
                 let [workerAssigne] = workers.splice(idAssigned, 1);
                 salleArchives.push(workerAssigne);
@@ -331,7 +376,7 @@ document.getElementById('rooms').addEventListener('click', (e) => {
     let btnDelete = e.target.closest('.deleteWorker');
     let arrayName = null;
     if (btnDelete) {
-        e.stopPropagation();
+       /*  e.stopPropagation(); */
         let index = parseInt(btnDelete.dataset.roomIndex);
         let roomName = btnDelete.dataset.roomArrayName;
         //
@@ -348,7 +393,10 @@ document.getElementById('rooms').addEventListener('click', (e) => {
             case "room-5":
                 arrayName = salleSécurité;
                 break;
-            case "room-5":
+            case "room-6":
+                arrayName = sallePersonnel;
+                break;
+            case "room-7":
                 arrayName = salleArchives;
                 break;
             default:
@@ -372,8 +420,7 @@ staffCards.addEventListener('click', (e) => {
     //l'affichage le formulaire pour editer
     if (btnEdit) {
         console.log(btnEdit);
-        e.stopPropagation();
-        
+       /*  e.stopPropagation(); */
         let index = Number(btnEdit.dataset.id);
         editIndex = index;
         let workerToEdit = workers[index];
@@ -388,7 +435,6 @@ staffCards.addEventListener('click', (e) => {
 
         document.getElementById('btnSaveWorker').innerHTML = "Modifier";
         document.getElementById('experienceInputs').style.display = "none";
-
         return;
     }
 
@@ -448,9 +494,7 @@ function detailWorker(workerSelected) {
 //search
 inputSearchEmp.addEventListener('keyup',(e)=>{
     let value=e.target.value.toLowerCase();
-    console.log(value);
     let listFilter=workers.filter(worker=>worker.nom.toLowerCase().includes(value.trim()));
-    console.log(listFilter);
     if(!listFilter){
         return;
     }else{
@@ -469,7 +513,5 @@ inputSearchEmp.addEventListener('keyup',(e)=>{
 
         `
     ).join("");
-    }
-    
-    
+    } 
 })
